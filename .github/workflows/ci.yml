@@ -53,7 +53,9 @@ jobs:
       # Deterministic rules. Rejects here need no human attention at all.
       - name: Contribution gate
         if: github.event_name == 'pull_request'
-        run: npx tsx scripts/gate.ts /tmp/base.json /tmp/head.json
+        run: |
+          npx tsx scripts/gate.ts /tmp/base.json /tmp/head.json \
+            --author='${{ github.event.pull_request.author_association }}'
 
       # Network check of new/changed quotes only.
       - name: Verify new quotes at source

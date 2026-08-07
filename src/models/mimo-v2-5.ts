@@ -59,16 +59,34 @@ export const mimoV25: Model = {
       ],
     },
     dataHandling: {
-      grade: "under-review",
+      grade: "partial",
       summary:
-        "The hosted platform publishes privacy and user-agreement pages, but their JS-rendered content could not be captured for verification; secondary reporting claims a no-train API default with 30-day prompt logging, unconfirmed against Xiaomi's own text. Residency undisclosed. Self-hosting the MIT weights is deployer-controlled.",
+        "Xiaomi's own text now confirms the no-training default, and states it categorically rather than as a configurable option: submitted content is not used for training or any other purpose. Residency is disclosed (Netherlands and Singapore) with EU Standard Contractual Clauses and a named EEA controller. What holds this short of strong is retention: the policy commits only to keeping data for 'the period necessary', with no defined window and no zero-retention option — so the 30-day prompt-logging figure carried by secondary reporting remains unconfirmed by the provider. Self-hosting the MIT weights is deployer-controlled.",
       evidence: [
         {
-          label: "MiMo platform privacy policy (content pending verification)",
-          url: "https://mimo.mi.com/docs/en-US/terms/privacy-policy",
+          label: "Xiaomi MiMo Privacy Policy §3.1 — training use",
+          url: "https://privacy.mi.com/XiaomiMiMoPlatform/en_GB/",
           sourceId: "xiaomi",
-          retrievedAt: "2026-08-05",
-          note: "JS-rendered page; requires browser capture (Phase 2 Browser Rendering) to archive terms.",
+          retrievedAt: "2026-08-07",
+          quote:
+            "Xiaomi will not use the content you provide for model training or any other purposes.",
+        },
+        {
+          label: "Xiaomi MiMo Privacy Policy §10 — data residency",
+          url: "https://privacy.mi.com/XiaomiMiMoPlatform/en_GB/",
+          sourceId: "xiaomi",
+          retrievedAt: "2026-08-07",
+          quote:
+            "Currently, Xiaomi has data centers in the Netherlands, and Singapore.",
+        },
+        {
+          label: "Xiaomi MiMo Privacy Policy §6 — retention (undefined window)",
+          url: "https://privacy.mi.com/XiaomiMiMoPlatform/en_GB/",
+          sourceId: "xiaomi",
+          retrievedAt: "2026-08-07",
+          quote:
+            "As a general rule, we retain personal information for the period necessary for the purposes described in this Privacy Policy, or as required by applicable law.",
+          note: "The gap that keeps this partial rather than strong: no numeric retention window and no zero-retention control.",
         },
       ],
     },
