@@ -140,11 +140,11 @@ export const mimoV25: Model = {
       publishedSafetyEvals: false,
       documentedSafetyPolicy: {
         satisfied: false,
-        note: "Terms pages exist but content is unverifiable by capture; MIT weights carry no acceptable-use policy.",
+        note: "The privacy policy is now verified, but it governs data handling only — no acceptable-use or safety policy is published, and the MIT weights carry none.",
       },
       enterpriseDataControls: {
-        satisfied: false,
-        note: "Hosted-API terms unverified; treated as unsatisfied pending Phase 2 browser capture.",
+        satisfied: true,
+        note: "The privacy policy states categorically that submitted content is not used for training, and discloses residency with EU SCCs. No zero-retention control or defined retention window.",
       },
     },
     tier2: {
@@ -164,11 +164,12 @@ export const mimoV25: Model = {
     soc2: null,
     iso42001: null,
     hipaaEligible: null,
-    trainsOnCustomerDataByDefault: null,
+    trainsOnCustomerDataByDefault: false,
     retentionWindow:
-      "Unverified (secondary reporting claims 30-day prompt logs)",
-    dataResidency: "Undisclosed",
-    euAiActNotes: "No published EU AI Act posture.",
+      "Undefined by the provider — 'the period necessary'; no zero-retention option. The 30-day figure from secondary reporting is not in Xiaomi's text.",
+    dataResidency: "Netherlands and Singapore",
+    euAiActNotes:
+      "No published EU AI Act posture, but the privacy policy names Xiaomi Technology Netherlands B.V. as the EEA/UK/CH controller and commits to EU Standard Contractual Clauses for outbound transfers.",
     deprecationPolicy:
       "Dated deprecations announced per-release; no formal policy",
     cloudAvailability: [
@@ -178,10 +179,10 @@ export const mimoV25: Model = {
     ],
   },
   jurisdiction: {
-    zones: ["PRC"],
+    zones: ["EU", "SG", "PRC"],
     regionalOptions: false,
-    note: "Residency undisclosed; the provider's PRC home jurisdiction is used here explicitly as a placeholder pending verification of the hosted platform's terms.",
+    note: "The privacy policy discloses data centers in the Netherlands and Singapore, with Xiaomi Technology Netherlands B.V. as the EEA/UK/CH controller. PRC is retained because Xiaomi is a PRC-parented group and the policy does not exclude affiliate access; no user-selectable region is offered.",
   },
   notes:
-    "Second-largest tracked share. The under-review data-handling grade is honest, not evasive: the terms exist but resist automated capture, which makes this entry the first concrete requirement for the Phase 2 browser-rendering snapshot path. The closed sibling MiMo-V2.5-Pro (API-only, 1T params) is not covered by this entry.",
+    "Second-largest tracked share. The data-handling grade was under-review on the stated grounds that the terms resisted automated capture; that was a misdiagnosis — the URL cited was a SPA path returning the marketing homepage, and the real policy is served as plain HTML from Xiaomi's central privacy host. Resolved to partial on 2026-08-07. The closed sibling MiMo-V2.5-Pro (API-only, 1T params) is not covered by this entry.",
 };
