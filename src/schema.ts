@@ -239,7 +239,7 @@ export function deriveDisplayVectors(raw: Model["vectors"]): DisplayVectors {
   // the second quote — and with it, a verifiable claim.
   const seen = new Set<string>();
   const evidence = [...jb.evidence, ...inj.evidence].filter((e) => {
-    const key = `${e.url} ${e.quote ?? ""}`;
+    const key = `${e.url}\u0000${e.quote ?? ""}`;
     return seen.has(key) ? false : (seen.add(key), true);
   });
   return {
