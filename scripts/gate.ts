@@ -23,9 +23,24 @@ type Json = Record<string, any>;
 
 const [, , basePath, headPath] = process.argv;
 if (!basePath || !headPath) {
-  console.error("usage: tsx scripts/gate.ts <base.json> <head.json>");
+  console.error(
+    "usage: tsx scripts/gate.ts <base.json> <head.json> [--author=<association>]",
+  );
   process.exit(2);
 }
+
+/**
+ * GitHub's `author_association` for the PR author. Only OWNER and MEMBER may
+ * change the source catalog (R1) — someone has to be able to add a source, or
+ * the registry can never cite a publisher it does not already know.
+ *
+ * Defaults to CONTRIBUTOR when absent, so running this locally or in any
+ * context that forgets to pass it gets the strict behaviour rather than the
+ * permissive one. A gate that fails open is not a gate.
+ */
+const authorArg = process.argv.find((a) => a.startsWith("--author="));
+const author = (authorArg?.split("=")[1] ?? "CONTRIBUTOR").toUpperCase();
+const isMaintainer = author === "OWNER" || author === "MEMBER";
 
 const base: Json = JSON.parse(readFileSync(basePath, "utf8"));
 const head: Json = JSON.parse(readFileSync(headPath, "utf8"));
@@ -85,11 +100,20 @@ function evidenceOf(node: unknown): Json[] {
  * all of it in one commit. This is the rule that makes the others load-bearing.
  */
 if (JSON.stringify(base.sources) !== JSON.stringify(head.sources)) {
-  rejections.push(
-    "R1 source-catalog-locked: this PR changes the source catalog (sources.ts). " +
-      "Source definitions, trust tiers and URL prefixes are maintainer-only, because " +
-      "every other evidence rule depends on them. Open an issue proposing the source instead.",
-  );
+  if (isMaintainer) {
+    // Allowed, but never silent. A tier change is one of the highest-leverage
+    // edits possible here — it decides which source wins a conflict — so it is
+    // always surfaced for review even when the author could merge it anyway.
+    reviewReasons.push(
+      "source catalog changed (maintainer) — verify tiers and URL prefixes deliberately",
+    );
+  } else {
+    rejections.push(
+      "R1 source-catalog-locked: this PR changes the source catalog (sources.ts). " +
+        "Source definitions, trust tiers and URL prefixes are maintainer-only, because " +
+        "every other evidence rule depends on them. Open an issue proposing the source instead.",
+    );
+  }
 }
 
 /**

@@ -363,6 +363,10 @@ export const SOURCES = {
       "https://mimo.xiaomi.com",
       "https://huggingface.co/XiaomiMiMo",
       "https://trust.mi.com",
+      // The MiMo platform privacy policy is served from Xiaomi's central
+      // privacy host, not from mimo.mi.com. The path under mimo.mi.com that
+      // this registry previously cited renders the marketing homepage.
+      "https://privacy.mi.com",
     ],
     license:
       "Public provider documentation and MIT-licensed open-weight releases.",

@@ -6,6 +6,27 @@ import type { ChangeEvent } from "./schema";
  */
 export const changeEvents: ChangeEvent[] = [
   {
+    id: "mri-mimo-data-handling-resolved",
+    date: "2026-08-07",
+    modelSlugs: ["mimo-v2-5"],
+    kind: "methodology",
+    severity: "info",
+    title:
+      "MiMo-V2.5 data handling resolved: under-review → partial, and the URL we were citing was wrong",
+    summary:
+      "This entry sat at under-review on the stated grounds that the privacy policy was JS-rendered and could not be captured. That diagnosis was wrong. Rendered in a real browser, the cited URL (mimo.mi.com/docs/en-US/terms/privacy-policy) returns the marketing homepage for any path — it is a single-page app serving its shell, and no amount of rendering would ever have produced terms. The actual policy lives on Xiaomi's central privacy host. Reading it resolves the vector to partial: the no-training default is confirmed in Xiaomi's own words and stated categorically, and residency is disclosed as the Netherlands and Singapore under EU Standard Contractual Clauses. It stops short of strong because retention is committed only as 'the period necessary', with no defined window and no zero-retention control — which also means the 30-day prompt-logging figure our previous summary attributed to secondary reporting is still unconfirmed by the provider. The prior summary's claim that residency was undisclosed is corrected. Published rather than silently fixed, per the methodology.",
+    evidence: [
+      {
+        label: "Xiaomi MiMo Privacy Policy — training use",
+        url: "https://privacy.mi.com/XiaomiMiMoPlatform/en_GB/",
+        sourceId: "xiaomi",
+        retrievedAt: "2026-08-07",
+        quote:
+          "Xiaomi will not use the content you provide for model training or any other purposes.",
+      },
+    ],
+  },
+  {
     id: "mri-correction-nemotron-trial-terms",
     date: "2026-08-05",
     modelSlugs: ["nemotron-3-ultra", "gemini-3-pro", "gemini-3-1-pro"],

@@ -59,16 +59,34 @@ export const mimoV25: Model = {
       ],
     },
     dataHandling: {
-      grade: "under-review",
+      grade: "partial",
       summary:
-        "The hosted platform publishes privacy and user-agreement pages, but their JS-rendered content could not be captured for verification; secondary reporting claims a no-train API default with 30-day prompt logging, unconfirmed against Xiaomi's own text. Residency undisclosed. Self-hosting the MIT weights is deployer-controlled.",
+        "Xiaomi's own text now confirms the no-training default, and states it categorically rather than as a configurable option: submitted content is not used for training or any other purpose. Residency is disclosed (Netherlands and Singapore) with EU Standard Contractual Clauses and a named EEA controller. What holds this short of strong is retention: the policy commits only to keeping data for 'the period necessary', with no defined window and no zero-retention option — so the 30-day prompt-logging figure carried by secondary reporting remains unconfirmed by the provider. Self-hosting the MIT weights is deployer-controlled.",
       evidence: [
         {
-          label: "MiMo platform privacy policy (content pending verification)",
-          url: "https://mimo.mi.com/docs/en-US/terms/privacy-policy",
+          label: "Xiaomi MiMo Privacy Policy §3.1 — training use",
+          url: "https://privacy.mi.com/XiaomiMiMoPlatform/en_GB/",
           sourceId: "xiaomi",
-          retrievedAt: "2026-08-05",
-          note: "JS-rendered page; requires browser capture (Phase 2 Browser Rendering) to archive terms.",
+          retrievedAt: "2026-08-07",
+          quote:
+            "Xiaomi will not use the content you provide for model training or any other purposes.",
+        },
+        {
+          label: "Xiaomi MiMo Privacy Policy §10 — data residency",
+          url: "https://privacy.mi.com/XiaomiMiMoPlatform/en_GB/",
+          sourceId: "xiaomi",
+          retrievedAt: "2026-08-07",
+          quote:
+            "Currently, Xiaomi has data centers in the Netherlands, and Singapore.",
+        },
+        {
+          label: "Xiaomi MiMo Privacy Policy §6 — retention (undefined window)",
+          url: "https://privacy.mi.com/XiaomiMiMoPlatform/en_GB/",
+          sourceId: "xiaomi",
+          retrievedAt: "2026-08-07",
+          quote:
+            "As a general rule, we retain personal information for the period necessary for the purposes described in this Privacy Policy, or as required by applicable law.",
+          note: "The gap that keeps this partial rather than strong: no numeric retention window and no zero-retention control.",
         },
       ],
     },
@@ -122,11 +140,11 @@ export const mimoV25: Model = {
       publishedSafetyEvals: false,
       documentedSafetyPolicy: {
         satisfied: false,
-        note: "Terms pages exist but content is unverifiable by capture; MIT weights carry no acceptable-use policy.",
+        note: "The privacy policy is now verified, but it governs data handling only — no acceptable-use or safety policy is published, and the MIT weights carry none.",
       },
       enterpriseDataControls: {
-        satisfied: false,
-        note: "Hosted-API terms unverified; treated as unsatisfied pending Phase 2 browser capture.",
+        satisfied: true,
+        note: "The privacy policy states categorically that submitted content is not used for training, and discloses residency with EU SCCs. No zero-retention control or defined retention window.",
       },
     },
     tier2: {
@@ -146,11 +164,12 @@ export const mimoV25: Model = {
     soc2: null,
     iso42001: null,
     hipaaEligible: null,
-    trainsOnCustomerDataByDefault: null,
+    trainsOnCustomerDataByDefault: false,
     retentionWindow:
-      "Unverified (secondary reporting claims 30-day prompt logs)",
-    dataResidency: "Undisclosed",
-    euAiActNotes: "No published EU AI Act posture.",
+      "Undefined by the provider — 'the period necessary'; no zero-retention option. The 30-day figure from secondary reporting is not in Xiaomi's text.",
+    dataResidency: "Netherlands and Singapore",
+    euAiActNotes:
+      "No published EU AI Act posture, but the privacy policy names Xiaomi Technology Netherlands B.V. as the EEA/UK/CH controller and commits to EU Standard Contractual Clauses for outbound transfers.",
     deprecationPolicy:
       "Dated deprecations announced per-release; no formal policy",
     cloudAvailability: [
@@ -160,10 +179,10 @@ export const mimoV25: Model = {
     ],
   },
   jurisdiction: {
-    zones: ["PRC"],
+    zones: ["EU", "SG", "PRC"],
     regionalOptions: false,
-    note: "Residency undisclosed; the provider's PRC home jurisdiction is used here explicitly as a placeholder pending verification of the hosted platform's terms.",
+    note: "The privacy policy discloses data centers in the Netherlands and Singapore, with Xiaomi Technology Netherlands B.V. as the EEA/UK/CH controller. PRC is retained because Xiaomi is a PRC-parented group and the policy does not exclude affiliate access; no user-selectable region is offered.",
   },
   notes:
-    "Second-largest tracked share. The under-review data-handling grade is honest, not evasive: the terms exist but resist automated capture, which makes this entry the first concrete requirement for the Phase 2 browser-rendering snapshot path. The closed sibling MiMo-V2.5-Pro (API-only, 1T params) is not covered by this entry.",
+    "Second-largest tracked share. The data-handling grade was under-review on the stated grounds that the terms resisted automated capture; that was a misdiagnosis — the URL cited was a SPA path returning the marketing homepage, and the real policy is served as plain HTML from Xiaomi's central privacy host. Resolved to partial on 2026-08-07. The closed sibling MiMo-V2.5-Pro (API-only, 1T params) is not covered by this entry.",
 };
