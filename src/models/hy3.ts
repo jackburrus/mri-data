@@ -60,14 +60,25 @@ export const hy3: Model = {
     dataHandling: {
       grade: "under-review",
       summary:
-        "English-language training-default, retention, and residency terms for the first-party TokenHub API could not be located; third-party analyses flag GDPR concerns and recommend self-hosting for sensitive data. The Apache 2.0 weights make self-hosting fully deployer-controlled.",
+        "Stays under-review, on firmer grounds than before. Tencent Cloud does publish a general privacy policy, and it was read in full: across roughly 92,000 characters it does not mention Hunyuan, model training, generative AI, or large language models even once. So there is no first-party statement — in either direction — on whether prompts submitted to the TokenHub API are used for training, and no Hunyuan-scoped retention or residency terms exist to cite. This is an absence of published terms, not an unread page. The Apache 2.0 weights make self-hosting fully deployer-controlled.",
       evidence: [
         {
           label:
-            "Tencent Cloud TokenHub product page (terms not surfaced in English)",
+            "Tencent Cloud Privacy Policy (general; silent on model training and Hunyuan)",
+          url: "https://www.tencentcloud.com/document/product/301/17345",
+          sourceId: "tencent",
+          retrievedAt: "2026-08-07",
+          quote:
+            "We will retain your personal information as described below (except if otherwise required to be retained by applicable law).",
+          note: "Quoted to establish what this policy does cover. The finding is what it omits — an absence cannot itself be quoted, which is why this vector stays under-review rather than being graded from silence.",
+        },
+        {
+          label:
+            "Tencent Cloud TokenHub product page (pricing and plans; no data-handling terms)",
           url: "https://www.tencentcloud.com/act/pro/tokenhub",
           sourceId: "tencent",
-          retrievedAt: "2026-08-05",
+          retrievedAt: "2026-08-07",
+          note: "Retained to record that the URL this registry previously cited as data-handling evidence is a marketing and pricing page containing none.",
         },
       ],
     },

@@ -6,6 +6,28 @@ import type { ChangeEvent } from "./schema";
  */
 export const changeEvents: ChangeEvent[] = [
   {
+    id: "mri-hy3-data-handling-evidence-corrected",
+    date: "2026-08-07",
+    modelSlugs: ["hy3"],
+    kind: "methodology",
+    severity: "notice",
+    title:
+      "HY3 stays under-review on data handling — but the evidence we cited was a pricing page",
+    summary:
+      "Our data-handling entry for HY3 cited the Tencent Cloud TokenHub page as its evidence. That page is marketing and pricing; it contains no data-handling terms at all, and never did. Tencent Cloud's actual privacy policy has now been located and read in full: across roughly 92,000 characters it does not mention Hunyuan, model training, generative AI, or large language models once. The grade is unchanged — under-review remains correct — but the reason is now documented and checkable rather than inferred. There is no first-party statement in either direction on whether TokenHub prompts train the model. Worth stating plainly: a top-ten model by usage whose provider publishes nothing about training use is itself the finding, and self-hosting the Apache 2.0 weights is the only way to remove the question.",
+    evidence: [
+      {
+        label:
+          "Tencent Cloud Privacy Policy (general; silent on model training)",
+        url: "https://www.tencentcloud.com/document/product/301/17345",
+        sourceId: "tencent",
+        retrievedAt: "2026-08-07",
+        quote:
+          "We will retain your personal information as described below (except if otherwise required to be retained by applicable law).",
+      },
+    ],
+  },
+  {
     id: "mri-mimo-data-handling-resolved",
     date: "2026-08-07",
     modelSlugs: ["mimo-v2-5"],
