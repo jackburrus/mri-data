@@ -1,0 +1,40 @@
+{
+  "name": "mri-data",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "ModelRiskIndex registry: data-as-code model risk assessments with evidence. System of record for everything a human asserts.",
+  "license": "CC-BY-4.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jackburrus/mri-data.git"
+  },
+  "homepage": "https://modelriskindex.com",
+  "bugs": {
+    "url": "https://github.com/jackburrus/mri-data/issues"
+  },
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "files": [
+    "src",
+    "dist",
+    "LICENSE",
+    "LICENSE-CODE"
+  ],
+  "scripts": {
+    "build": "tsx scripts/build.ts",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "check-links": "tsx scripts/check-links.ts",
+    "gate": "tsx scripts/gate.ts",
+    "verify-quotes": "tsx scripts/verify-quotes.ts"
+  },
+  "dependencies": {
+    "zod": "^4.3.5"
+  },
+  "devDependencies": {
+    "tsx": "^4.20.0",
+    "typescript": "^5.9.3",
+    "vitest": "^3.2.0"
+  }
+}

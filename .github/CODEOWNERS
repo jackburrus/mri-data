@@ -1,0 +1,16 @@
+# Everything needs maintainer sign-off by default.
+*                     @jackburrus
+
+# The source catalog is the root of trust for every evidence rule: URL prefix
+# validation and trust-tier conflict resolution both read from it. CI rejects
+# contributor PRs that touch it outright (rule R1); this is the second lock.
+/src/sources.ts       @jackburrus
+
+# The schema is the other half of enforcement — the compiler is a second
+# validator alongside Zod.
+/src/schema.ts        @jackburrus
+
+# The rules themselves.
+/scripts/gate.ts          @jackburrus
+/scripts/verify-quotes.ts @jackburrus
+/.github/                 @jackburrus

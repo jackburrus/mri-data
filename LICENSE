@@ -1,0 +1,36 @@
+ModelRiskIndex registry data
+Copyright (c) 2026 ModelRiskIndex
+
+The dataset in this repository — the contents of `src/` and any artifact built
+from it, including `dist/dataset.json` — is licensed under the
+
+    Creative Commons Attribution 4.0 International License (CC BY 4.0)
+
+You are free to share and adapt this material for any purpose, including
+commercially, provided you give appropriate credit.
+
+Full licence text: https://creativecommons.org/licenses/by/4.0/legalcode
+Summary:          https://creativecommons.org/licenses/by/4.0/
+
+ATTRIBUTION
+
+Credit "ModelRiskIndex" and link to https://modelriskindex.com. A dated
+reference is strongly preferred, because every grade here is a point-in-time
+assessment bound to evidence retrieved on a specific date:
+
+    Source: ModelRiskIndex (https://modelriskindex.com), retrieved 2026-08-07
+
+SOURCE MATERIAL
+
+This licence covers our assessments, gradings, schema and prose. It does not
+and cannot cover the third-party material those assessments cite — provider
+terms of service, model cards, system cards, academic papers and news
+reporting each remain under their own terms. `src/sources.ts` records the
+licensing posture we understand to apply to each source. Quotes are reproduced
+here for verification and criticism; if you redistribute them, satisfy yourself
+that your use is permitted.
+
+CODE
+
+Code in this repository — `src/schema.ts`, `scripts/`, `test/`, and build
+configuration — is licensed separately under the MIT License. See LICENSE-CODE.

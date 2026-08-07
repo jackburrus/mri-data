@@ -1,0 +1,61 @@
+name: registry
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+# Contributions come from forks. Nothing here may run with write access to the
+# repo or with secrets in scope — the gate scripts execute contributor-authored
+# TypeScript, so the job is treated as untrusted.
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # The compiler is half the schema. A model file that fails to answer a
+      # new requirement is a type error, not a runtime surprise.
+      - name: Typecheck
+        run: npx tsc --noEmit
+
+      # Zod validity, unique ids, https-only evidence, source-prefix match,
+      # temporal sanity, editorial style, usage-share plausibility.
+      - name: Registry test suite
+        run: npm test
+
+      - name: Build head dataset
+        run: |
+          npm run build
+          cp dist/dataset.json /tmp/head.json
+
+      - name: Build base dataset
+        if: github.event_name == 'pull_request'
+        run: |
+          git worktree add /tmp/base "${{ github.event.pull_request.base.sha }}"
+          cd /tmp/base
+          npm ci --ignore-scripts
+          npm run build
+          cp dist/dataset.json /tmp/base.json
+
+      # Deterministic rules. Rejects here need no human attention at all.
+      - name: Contribution gate
+        if: github.event_name == 'pull_request'
+        run: npx tsx scripts/gate.ts /tmp/base.json /tmp/head.json
+
+      # Network check of new/changed quotes only.
+      - name: Verify new quotes at source
+        if: github.event_name == 'pull_request'
+        run: npx tsx scripts/verify-quotes.ts /tmp/base.json /tmp/head.json
