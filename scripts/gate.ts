@@ -212,24 +212,30 @@ for (const [slug, hm] of headModels) {
 }
 
 /**
- * R5 — The tier is computed, never stored.
+ * R5 — A changed tier is surfaced, never rejected.
  *
- * Storing a tier would let a contribution assert a rank directly instead of
- * earning it through the requirements checklist. The schema computes it; a
- * literal `tier` on a model is an attempt to route around that.
+ * This rule used to reject any model whose `tier` differed from base, on the
+ * theory that a literal tier is an attempt to assert a rank instead of earning
+ * it. That was wrong twice over, and it would have false-rejected legitimate
+ * contributions:
+ *
+ *   1. It ran against BUILT artifacts, where `tier` is always present because
+ *      the registry computes it. So the check fired on every legitimate tier
+ *      movement — exactly the contributions most worth accepting.
+ *   2. The thing it was guarding against is already impossible upstream.
+ *      `Model` is inferred from `modelSchema`, which has `tierChecklist` and no
+ *      `tier`, so an authored tier is a compile error before Zod even runs.
+ *
+ * What remains worth doing is noticing. A tier moving means a requirement
+ * answer changed, which is judgment-bearing and belongs in front of a human —
+ * as a review reason, not a rejection.
  */
 for (const [slug, hm] of headModels) {
-  if (
-    Object.prototype.hasOwnProperty.call(hm, "tier") &&
-    typeof hm.tier !== "object"
-  ) {
-    const bm = baseModels.get(slug);
-    if (!bm || bm.tier !== hm.tier) {
-      rejections.push(
-        `R5 tier-is-computed: ${slug} sets a literal tier. Tier is derived from the ` +
-          `requirements checklist and must not be asserted.`,
-      );
-    }
+  const bm = baseModels.get(slug);
+  if (bm && bm.tier !== hm.tier) {
+    reviewReasons.push(
+      `tier changed: ${slug} ${bm.tier} → ${hm.tier} (a requirement answer moved)`,
+    );
   }
 }
 

@@ -115,11 +115,20 @@ punctuation exactly. You do need to reproduce the **words** exactly. Do not
 paraphrase, do not stitch together sentences from different parts of a page,
 and do not trim a qualifier that changes the meaning.
 
-### R5 — Tier is computed, never stored
+### R5 — A changed tier is surfaced, never rejected
 
-Models answer a typed requirements checklist; the tier is derived. A literal
-tier on a model is an attempt to assert a rank instead of earning it, and is
-rejected.
+Models answer a typed requirements checklist; the tier is derived from it and
+never authored. You cannot assert a tier even if you want to — `Model` is
+inferred from a schema that has `tierChecklist` and no `tier`, so it is a
+compile error long before this gate runs.
+
+What the gate does is **notice**. A tier moving means a requirement answer
+changed, which is judgment-bearing, so it routes to maintainer review.
+
+> This rule previously rejected any tier change outright. That was a bug: it
+> compared built artifacts, where the tier is always computed and present, so it
+> fired on every legitimate tier movement — the contributions most worth having.
+> Fixed 2026-08-08.
 
 ### R6 — Quotes must verify at the source
 
